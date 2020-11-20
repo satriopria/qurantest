@@ -45,7 +45,7 @@ const getJuz = async anchor => {
   } else {
     const juz = await putData("juz", 1, 30);
     let selection = [];
-    for (let i = anchor[0]; i <= anchor[1]; i++) {
+    for (let i = anchor[0]-1; i < anchor[1]; i++) {
       let param = [Number(juz[i][1]), Number(juz[i][3]), Number(juz[i][4]), Number(juz[i][6]), anchor[2], anchor[3]];
       selection.push(await getSura(param));
     }
