@@ -1,0 +1,40 @@
+@font-face {
+    font-family: Amiri;
+    src: url('Amiri/Amiri-Regular.ttf');
+  }
+
+  @font-face {
+    font-family: Amiri;
+    src: url('Amiri/Amiri-Bold.ttf');
+    font-weight: bold;
+  }
+
+  @font-face {
+    font-family: Amiri;
+    src: url('Amiri/Amiri-Italic.ttf');
+    font-style: italic;
+  }
+
+  #rek,
+  #answer {
+    font-family: Amiri;
+  }
+
+  center {
+    margin-top: 50px;
+  }
+
+  #rek, #answer {
+    font-size: 30px;
+    line-height: 3em;
+  }
+
+  @media only screen and (max-width: 500px) {
+    #prev, #next, #cheat {
+      font-size: 12px;
+    }
+
+    #rek, #answer {
+      font-size: 20px;
+    }
+  }

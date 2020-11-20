@@ -52,6 +52,8 @@ import { putData } from "./data.js";
     document.getElementById("selectToJuz").appendChild(el.cloneNode(true));
   }
 
+  let totalAyat = 0;
+
   let sumDataSurah = Array(6);
   document.getElementById("selectFromSurah").onchange = _ => { adjustAyat("selectFromSurah", "selectFromAyat"); sumDataSurah[0] = "selectFromSurah"; sumPrint(sumDataSurah, "sum"); }
   document.getElementById("selectFromAyat").onchange = _ => { sumDataSurah[1] = "selectFromAyat"; sumPrint(sumDataSurah, "sum"); }
@@ -66,5 +68,4 @@ import { putData } from "./data.js";
   document.getElementById("questionCount1").onchange = _ => { sumDataJuz[2] = "questionCount1"; sumPrint(sumDataJuz, "sum1"); }
   document.getElementById("answerLength1").onchange = _ => { sumDataJuz[3] = "answerLength1"; sumPrint(sumDataJuz, "sum1"); }
 
-  
 })();
