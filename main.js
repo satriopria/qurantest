@@ -108,6 +108,7 @@ const getJuz = async anchor => {
   //init quest
   printQuest();
   document.getElementById("prev").disabled = true;
+  document.getElementById("next").disabled = dataThrow[dataThrow.length - 2] > 1 ? false : true;
 
   //next button click event
   document.getElementById("next").onclick = _ => {
