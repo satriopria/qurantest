@@ -15,15 +15,26 @@ const getSura = async anchor => {
       for (let i = anchor[1]; i <= anchor[3]; i++) selection.push('quran-text/surah/' + anchor[0] + '/' + i + '.txt');
     } else {
       for (let i = anchor[0]; i <= anchor[2]; i++) {
+        // console.log(anchor[3])
         if (i == anchor[0]) {
-          for (let j = anchor[1]; j <= sura[i-1][2]; j++) selection.push('quran-text/surah/' + i + '/' + j + '.txt');
+          console.log("a"+sura[i][2])
+          for (let j = anchor[1]; j <= sura[i-1][2]; j++) {
+            selection.push('quran-text/surah/' + i + '/' + j + '.txt');
+            console.log(j)
+          }
         } else if (i == anchor[2]) {
-          for (let j = 1; j <= anchor[3]; j++) selection.push('quran-text/surah/' + i + '/' + j + '.txt');
+          console.log("b")
+          for (let j = 1; j <= anchor[3]; j++) {
+            selection.push('quran-text/surah/' + i + '/' + j + '.txt');
+            console.log(j)
+          }
         } else {
+          console.log("c")
           for (let j = 1; j <= sura[i-1][2]; j++) selection.push('quran-text/surah/' + i + '/' + j + '.txt');
         }
       }
     }
+    // console.log(selection);
     return selection;
   }
 }
@@ -34,7 +45,7 @@ const getJuz = async anchor => {
   } else {
     const juz = await putData("juz", 1, 30);
     let selection = [];
-    for (let i = anchor[0]-1; i < anchor[1]; i++) {
+    for (let i = anchor[0]; i <= anchor[1]; i++) {
       let param = [Number(juz[i][1]), Number(juz[i][3]), Number(juz[i][4]), Number(juz[i][6]), anchor[2], anchor[3]];
       selection.push(await getSura(param));
     }
@@ -42,7 +53,11 @@ const getJuz = async anchor => {
   }
 }
 
+// var e = decodeURIComponent(atob(window.location.search.substring(1)))
+//   console.log(e);
+
 (async _ => {
+
   const paramList = ["fromSurah", "fromAyat", "toSurah", "toAyat", "fromJuz", "toJuz", "q", "a"];
   var queryString = decodeURIComponent(atob(window.location.search.substring(1)));
   var queries = queryString.split("&");
@@ -56,62 +71,38 @@ const getJuz = async anchor => {
     }
   }
 
+  // console.log(dataThrow);
+
   let dataRange = 0;
   if (dataThrow.length > 4) {
     dataRange = await getSura(dataThrow);
   } else {
     dataRange = await getJuz(dataThrow);
   }
-<<<<<<< HEAD
   console.log(dataRange)
-  console.log(dataThrow)
-
-  //interupt when answer >= selection
-  if (dataThrow[dataThrow.length - 1] >= dataRange.length) {
-    console.log("inininin")
-    window.location.href = './index.html?tobig';
-  }
-
-=======
->>>>>>> 371c2fd281c92b1539d72f2b350f0ed9873c78a3
 
   let arr = [];
   let answer = [];
   let isBiggerQuest = false;
-<<<<<<< HEAD
-  let c = 0, d=0;
-
   //randomIt - entering question and answer to array
+
+  console.log(dataThrow[dataThrow.length - 2])
+    console.log(dataRange.length)
   if (dataThrow[dataThrow.length - 2] >= dataRange.length) {
+    
     isBiggerQuest = true;
   }
-=======
-  
-  //randomIt - entering question and answer to array
-  if (dataThrow[dataThrow.length - 2] >= dataRange.length) isBiggerQuest = true;
->>>>>>> 371c2fd281c92b1539d72f2b350f0ed9873c78a3
 
-  while (arr.length < dataThrow[dataThrow.length - 2]  && c<1000) {
-    let idx = Math.floor(Math.random() * dataRange.length);
-    console.log("idx"+idx)
+  while (arr.length < dataThrow[dataThrow.length - 2]) {
+    let idx = Math.floor(Math.random() * (dataRange.length - dataThrow[dataThrow.length - 1]));
     let r = dataRange[idx];
 
     if (arr.indexOf(r) === -1 || isBiggerQuest) {
-      let count0 = idx;
-      let count1 = 0;
-      let ans = []
-      while (dataRange[count0++] && count1++<dataThrow[dataThrow.length - 1] && d<1000) {
-        // console.log("inilo"+count0)
-        dataRange[count0] ? ans.push(dataRange[count0]) : "";
-        d++;
-      }
-      // console.log(ans)
-      // answer.push(dataRange.slice(idx + 1, (idx + 1) + dataThrow[dataThrow.length - 1]))
-      answer.push(ans);
+      answer.push(dataRange.slice(idx + 1, (idx + 1) + dataThrow[dataThrow.length - 1]))
       arr.push(r);
     }
-    c++;
   }
+  console.log(arr);
 
   //displaying the quest (one by one)
   let m = 0;
@@ -141,7 +132,6 @@ const getJuz = async anchor => {
   //init quest
   printQuest();
   document.getElementById("prev").disabled = true;
-  document.getElementById("next").disabled = dataThrow[dataThrow.length - 2] > 1 ? false : true;
 
   //next button click event
   document.getElementById("next").onclick = _ => {
