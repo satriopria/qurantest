@@ -45,7 +45,7 @@ const getJuz = async anchor => {
   } else {
     const juz = await putData("juz", 1, 30);
     let selection = [];
-    for (let i = anchor[0]; i <= anchor[1]; i++) {
+    for (let i = anchor[0]-1; i < anchor[1]; i++) {
       let param = [Number(juz[i][1]), Number(juz[i][3]), Number(juz[i][4]), Number(juz[i][6]), anchor[2], anchor[3]];
       selection.push(await getSura(param));
     }
@@ -80,27 +80,45 @@ const getJuz = async anchor => {
     dataRange = await getJuz(dataThrow);
   }
   console.log(dataRange)
+  console.log(dataThrow)
+
+  //interupt when answer >= selection
+  if (dataThrow[dataThrow.length - 1] >= dataRange.length) {
+    console.log("inininin")
+    window.location.href = './index.html?tobig';
+  }
+
 
   let arr = [];
   let answer = [];
   let isBiggerQuest = false;
-  //randomIt - entering question and answer to array
+  let c = 0, d=0;
 
-  console.log(dataThrow[dataThrow.length - 2])
-    console.log(dataRange.length)
+  //randomIt - entering question and answer to array
   if (dataThrow[dataThrow.length - 2] >= dataRange.length) {
-    
     isBiggerQuest = true;
   }
 
-  while (arr.length < dataThrow[dataThrow.length - 2]) {
-    let idx = Math.floor(Math.random() * (dataRange.length - dataThrow[dataThrow.length - 1]));
+  while (arr.length < dataThrow[dataThrow.length - 2]  && c<1000) {
+    let idx = Math.floor(Math.random() * dataRange.length);
+    console.log("idx"+idx)
     let r = dataRange[idx];
 
     if (arr.indexOf(r) === -1 || isBiggerQuest) {
-      answer.push(dataRange.slice(idx + 1, (idx + 1) + dataThrow[dataThrow.length - 1]))
+      let count0 = idx;
+      let count1 = 0;
+      let ans = []
+      while (dataRange[count0++] && count1++<dataThrow[dataThrow.length - 1] && d<1000) {
+        // console.log("inilo"+count0)
+        dataRange[count0] ? ans.push(dataRange[count0]) : "";
+        d++;
+      }
+      // console.log(ans)
+      // answer.push(dataRange.slice(idx + 1, (idx + 1) + dataThrow[dataThrow.length - 1]))
+      answer.push(ans);
       arr.push(r);
     }
+    c++;
   }
   console.log(arr);
 
@@ -132,6 +150,7 @@ const getJuz = async anchor => {
   //init quest
   printQuest();
   document.getElementById("prev").disabled = true;
+  document.getElementById("next").disabled = dataThrow[dataThrow.length - 2] > 1 ? false : true;
 
   //next button click event
   document.getElementById("next").onclick = _ => {

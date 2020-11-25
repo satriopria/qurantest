@@ -9,24 +9,19 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="index.js" type="module"></script>
+  
 </head>
 
 <body>
 
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-<<<<<<< HEAD
-    <a class="navbar-brand" href="#">Q-TEST</a>
+    <a class="navbar-brand" href="#"><b>Q-TEST</b></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars"
-=======
-    <a style="visibility: hidden;" class="navbar-brand" href="#">Navbar</a>
-    <button style="visibility: hidden;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars"
->>>>>>> df77eba0494ae55056fa06a0d03e9fa1aa6c82a1
       aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-<!--     <div class="collapse navbar-collapse" id="navbars">
+    <div class="collapse navbar-collapse" id="navbars">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" href="./index.html">Home <span class="sr-only">(current)</span></a>
@@ -35,7 +30,7 @@
           <a class="nav-link" href="./about.html">About</a>
         </li>
       </ul>
-    </div> -->
+    </div>
   </nav>
 
   <main id="text">
@@ -43,6 +38,7 @@
     <div class="jumbotron text-center" style="margin-top:30px; margin-bottom: 1rem !important;">
       <h1>Qur'an Memorization Test</h1>
       <p>Testing your memorization here!!</p>
+      <p id="note" style="color: red; display: none;">*to big answer length!!</p>
     </div>
 
     <!-- selectsi -->
@@ -132,14 +128,19 @@
     </div>
   </main>
 
+  <script src="index.js" type="module"></script>
   <script>
+    if (window.location.search.substring(1) == "tobig") {
+      document.getElementById("note").style.display = "block";
+    }
+
     const navi = _ => {
       let fromSurah = document.getElementById("selectFromSurah").value;
       let fromAyat = document.getElementById("selectFromAyat").value;
       let ToSurah = document.getElementById("selectToSurah").value;
       let ToAyat = document.getElementById("selectToAyat").value;
-      let q = document.getElementById("questionCount").value;
-      let a = document.getElementById("answerLength").value;
+      let q = document.getElementById("questionCount").value != "" ? document.getElementById("questionCount").value : 1;
+      let a = document.getElementById("answerLength").value != "" ? document.getElementById("answerLength").value: 1;
       var queryString = "fromSurah=" + fromSurah + "&fromAyat=" + fromAyat + "&toSurah=" + ToSurah + "&toAyat=" + ToAyat + "&q=" + q + "&a=" + a;
       window.location.href = "main.html?" + btoa(queryString);
     }
@@ -147,8 +148,8 @@
     const navi1 = _ => {
       let fromJuz = document.getElementById("selectFromJuz").value;
       let ToJuz = document.getElementById("selectToJuz").value;
-      let q = document.getElementById("questionCount1").value;
-      let a = document.getElementById("answerLength1").value;
+      let q = document.getElementById("questionCount1").value != "" ? document.getElementById("questionCount1").value : 1;
+      let a = document.getElementById("answerLength1").value != "" ? document.getElementById("answerLength1").value: 1;
       var queryString = "fromJuz=" + fromJuz + "&toJuz=" + ToJuz + "&q=" + q + "&a=" + a;
       window.location.href = "main.html?" + btoa(queryString);
     }

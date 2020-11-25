@@ -53,6 +53,7 @@ import { putData } from "./data.js";
   }
 
   let totalAyat = 0;
+  
 
   let sumDataSurah = Array(6);
   document.getElementById("selectFromSurah").onchange = _ => { adjustAyat("selectFromSurah", "selectFromAyat"); sumDataSurah[0] = "selectFromSurah"; sumPrint(sumDataSurah, "sum"); }
