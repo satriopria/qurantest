@@ -15,15 +15,26 @@ const getSura = async anchor => {
       for (let i = anchor[1]; i <= anchor[3]; i++) selection.push('quran-text/surah/' + anchor[0] + '/' + i + '.txt');
     } else {
       for (let i = anchor[0]; i <= anchor[2]; i++) {
+        // console.log(anchor[3])
         if (i == anchor[0]) {
-          for (let j = anchor[1]; j <= sura[i-1][2]; j++) selection.push('quran-text/surah/' + i + '/' + j + '.txt');
+          console.log("a"+sura[i][2])
+          for (let j = anchor[1]; j <= sura[i-1][2]; j++) {
+            selection.push('quran-text/surah/' + i + '/' + j + '.txt');
+            console.log(j)
+          }
         } else if (i == anchor[2]) {
-          for (let j = 1; j <= anchor[3]; j++) selection.push('quran-text/surah/' + i + '/' + j + '.txt');
+          console.log("b")
+          for (let j = 1; j <= anchor[3]; j++) {
+            selection.push('quran-text/surah/' + i + '/' + j + '.txt');
+            console.log(j)
+          }
         } else {
+          console.log("c")
           for (let j = 1; j <= sura[i-1][2]; j++) selection.push('quran-text/surah/' + i + '/' + j + '.txt');
         }
       }
     }
+    // console.log(selection);
     return selection;
   }
 }
@@ -42,7 +53,11 @@ const getJuz = async anchor => {
   }
 }
 
+// var e = decodeURIComponent(atob(window.location.search.substring(1)))
+//   console.log(e);
+
 (async _ => {
+
   const paramList = ["fromSurah", "fromAyat", "toSurah", "toAyat", "fromJuz", "toJuz", "q", "a"];
   var queryString = decodeURIComponent(atob(window.location.search.substring(1)));
   var queries = queryString.split("&");
@@ -56,13 +71,14 @@ const getJuz = async anchor => {
     }
   }
 
+  // console.log(dataThrow);
+
   let dataRange = 0;
   if (dataThrow.length > 4) {
     dataRange = await getSura(dataThrow);
   } else {
     dataRange = await getJuz(dataThrow);
   }
-<<<<<<< HEAD
   console.log(dataRange)
   console.log(dataThrow)
 
@@ -72,24 +88,16 @@ const getJuz = async anchor => {
     window.location.href = './index.html?tobig';
   }
 
-=======
->>>>>>> 371c2fd281c92b1539d72f2b350f0ed9873c78a3
 
   let arr = [];
   let answer = [];
   let isBiggerQuest = false;
-<<<<<<< HEAD
   let c = 0, d=0;
 
   //randomIt - entering question and answer to array
   if (dataThrow[dataThrow.length - 2] >= dataRange.length) {
     isBiggerQuest = true;
   }
-=======
-  
-  //randomIt - entering question and answer to array
-  if (dataThrow[dataThrow.length - 2] >= dataRange.length) isBiggerQuest = true;
->>>>>>> 371c2fd281c92b1539d72f2b350f0ed9873c78a3
 
   while (arr.length < dataThrow[dataThrow.length - 2]  && c<1000) {
     let idx = Math.floor(Math.random() * dataRange.length);
@@ -112,6 +120,7 @@ const getJuz = async anchor => {
     }
     c++;
   }
+  console.log(arr);
 
   //displaying the quest (one by one)
   let m = 0;
