@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XBKPJ9M32B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-XBKPJ9M32B');
+  </script>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homepage</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#"><b>Q-TEST</b></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars"
+      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbars">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="./index.html">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./about.html">About</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="text">
+    <!-- ini judulx -->
+    <div class="jumbotron text-center" style="margin-top:30px; margin-bottom: 1rem !important;">
+      <h1>Qur'an Memorization Test</h1>
+      <p>Testing your memorization here!!</p>
+      <p id="note" style="color: red; display: none;">*please fill the blank form!!</p>
+    </div>
+
+    <!-- selectsi -->
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#menu1">Select by Surah/Ayat</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#menu2">Select by Juz</a>
+      </li>
+    </ul>
+
+    <!-- content per selectsi -->
+    <div class="tab-content">
+      <div class="tab-pane container active" id="menu1">
+        <!-- select  by surah/ayat -->
+        <div class="row" style="margin-top: 20px;">
+          <div class="col">
+            <select class="form-control" name="selectSurah" id="selectFromSurah" required>
+              <option value="" selected>From Surah?</option>
+            </select>
+          </div>
+          <div class="col">
+            <select class="form-control" name="selectAyat" id="selectFromAyat" required>
+              <option value="" selected>From Ayat?</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 20px;">
+          <div class="col">
+            <select class="form-control" name="selectSurah" id="selectToSurah" required>
+              <option value="" selected>To Surah?</option>
+            </select>
+          </div>
+          <div class="col">
+            <select class="form-control" name="selectAyat" id="selectToAyat" required>
+              <option value="" selected>To Ayat?</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 20px;">
+          <div class="col">
+            <div class="form-group">
+              <input class="form-control col-sm-5" min="1" max="20" type="number" id="questionCount"
+                placeholder="Question Count">
+            </div>
+            <div class="form-group">
+              <input class="form-control col-sm-5" min="1" max="20" type="number" id="answerLength"
+                placeholder="Answer Length">
+            </div>
+          </div>
+          <div class="col">
+            <b>SUMMARY:</b>
+            <p id="sum"></p>
+          </div>
+        </div>
+        <button onclick="navi()" class="btn btn-block btn-primary">start</button>
+      </div>
+      <div class="tab-pane container fade" id="menu2">
+        <!-- select  by juz -->
+        <div style="margin-top: 20px;" class="row">
+          <div class="col">
+            <div class="form-group">
+              <select class="form-control" name="selectSurah" id="selectFromJuz">
+                <option value="" selected>From Juz?</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <select class="form-control" name="selectAyat" id="selectToJuz">
+                <option value="" selected>To Juz?</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input class="form-control col-sm-5" type="number" id="questionCount1" placeholder="Question Count">
+            </div>
+            <div class="form-group">
+              <input class="form-control col-sm-5" type="number" id="answerLength1" placeholder="Answer Length">
+            </div>
+          </div>
+          <div class="col">
+            <b>SUMMARY:</b>
+            <p id="sum1"></p>
+          </div>
+        </div>
+        <button onclick="navi1()" class="btn btn-block btn-primary" type="submit">start</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="index.js" type="module"></script>
+  <script>
+    if (window.location.search.substring(1) == "tobig") {
+      document.getElementById("note").style.display = "block";
+    }
+
+    const navi = _ => {
+      let fromSurah = document.getElementById("selectFromSurah").value;
+      let fromAyat = document.getElementById("selectFromAyat").value;
+      let toSurah = document.getElementById("selectToSurah").value;
+      let toAyat = document.getElementById("selectToAyat").value;
+      let q = document.getElementById("questionCount").value != "" ? document.getElementById("questionCount").value : 1;
+      let a = document.getElementById("answerLength").value != "" ? document.getElementById("answerLength").value: 1;
+
+      if (fromSurah == "" || fromAyat == "" || toSurah == "" || toAyat == "") document.getElementById("note").style.display = "block";
+      else window.location.href = "main.html?" + btoa(`fromSurah=${fromSurah}&fromAyat=${fromAyat}&toSurah=${toSurah}&toAyat=${toAyat}&q=${q}&a=${a}`);
+      // var queryString = "fromSurah=" + fromSurah + "&fromAyat=" + fromAyat + "&toSurah=" + ToSurah + "&toAyat=" + ToAyat + "&q=" + q + "&a=" + a;
+      // window.location.href = "main.html?" + btoa(queryString);
+    }
+
+    const navi1 = _ => {
+      let fromJuz = document.getElementById("selectFromJuz").value;
+      let toJuz = document.getElementById("selectToJuz").value;
+      let q = document.getElementById("questionCount1").value != "" ? document.getElementById("questionCount1").value : 1;
+      let a = document.getElementById("answerLength1").value != "" ? document.getElementById("answerLength1").value: 1;
+
+      if (fromJuz == "" || toJuz == "") document.getElementById("note").style.display = "block";
+      else window.location.href = "main.html?" + btoa(`fromJuz=${fromJuz}&toJuz=${toJuz}&q=${q}&a=${a}`);
+      // var queryString = "fromJuz=" + fromJuz + "&toJuz=" + ToJuz + "&q=" + q + "&a=" + a;
+      // window.location.href = "main.html?" + btoa(queryString);
+    }
+  </script>
+</body>
+
+</html>
